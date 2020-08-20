@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+<meta content="utf-8" http-equiv="encoding" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no" />
+
+<head>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    [class*="col-"] {
+      float: left;
+      padding: 5px;
+    }
+
+    /* For mobile phones: */
+    [class*="col-"] {
+      width: 100%;
+    }
+
+    @media only screen and (min-width: 600px) {
+
+      /* For tablets: */
+      .col-xs-1 {
+        width: 8.33%;
+      }
+
+      .col-xs-2 {
+        width: 16.66%;
+      }
+
+      .col-xs-3 {
+        width: 25%;
+      }
+
+      .col-xs-4 {
+        width: 33.33%;
+      }
+
+      .col-xs-5 {
+        width: 41.66%;
+      }
+
+      .col-xs-6 {
+        width: 50%;
+      }
+
+      .col-xs-7 {
+        width: 58.33%;
+      }
+
+      .col-xs-8 {
+        width: 66.66%;
+      }
+
+      .col-xs-9 {
+        width: 75%;
+      }
+
+      .col-xs-10 {
+        width: 83.33%;
+      }
+
+      .col-xs-11 {
+        width: 91.66%;
+      }
+
+      .col-xs-12 {
+        width: 100%;
+      }
+    }
+
+    @media only screen and (min-width: 768px) {
+
+      /* For tablets: */
+      .col-s-1 {
+        width: 8.33%;
+      }
+
+      .col-s-2 {
+        width: 16.66%;
+      }
+
+      .col-s-3 {
+        width: 25%;
+      }
+
+      .col-s-4 {
+        width: 33.33%;
+      }
+
+      .col-s-5 {
+        width: 41.66%;
+      }
+
+      .col-s-6 {
+        width: 50%;
+      }
+
+      .col-s-7 {
+        width: 58.33%;
+      }
+
+      .col-s-8 {
+        width: 66.66%;
+      }
+
+      .col-s-9 {
+        width: 75%;
+      }
+
+      .col-s-10 {
+        width: 83.33%;
+      }
+
+      .col-s-11 {
+        width: 91.66%;
+      }
+
+      .col-s-12 {
+        width: 100%;
+      }
+    }
+
+    @media only screen and (min-width: 800px) {
+      .col-1 {
+        width: 8.33%;
+      }
+
+      .col-2 {
+        width: 16.66%;
+      }
+
+      .col-3 {
+        width: 25%;
+      }
+
+      .col-4 {
+        width: 33.33%;
+      }
+
+      .col-5 {
+        width: 41.66%;
+      }
+
+      .col-6 {
+        width: 50%;
+      }
+
+      .col-7 {
+        width: 58.33%;
+      }
+
+      .col-8 {
+        width: 66.66%;
+      }
+
+      .col-9 {
+        width: 75%;
+      }
+
+      .col-10 {
+        width: 83.33%;
+      }
+
+      .col-11 {
+        width: 91.66%;
+      }
+
+      .col-12 {
+        width: 100%;
+      }
+    }
+
+    body {
+      font-family: sans-serif;
+      overflow-x: hidden;
+    }
+
+    .heading {
+      text-align: center;
+      font-size: 17px;
+      color: #818181;
+      margin-bottom: 10px;
+    }
+
+    .main-container {
+      max-width: 840px;
+      display: flex;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .question-container {
+      height: 100%;
+      background-color: white;
+      width: 100%;
+    }
+
+    .answer-container {
+      padding-top: 5px;
+      height: inherit;
+      min-width: 190px;
+      background-color: white;
+      margin-left: 20px;
+    }
+
+    .question-box {
+      width: 300px;
+      height: 155px;
+      background-color: #efefef;
+      margin: 5px;
+      text-align: center;
+      display: table-cell;
+      vertical-align: bottom;
+      padding-bottom: 10px;
+    }
+
+    .question-row {
+      display: flex;
+    }
+
+    .drag-box {
+      width: 190px;
+      height: 60px;
+      background-color: white;
+      border: 1px dotted black;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 5px;
+    }
+
+    .question-style {
+      color: black;
+      font-size: 21px;
+      text-align: center;
+    }
+
+    .drag-answer {
+      width: 190px;
+      height: 60px;
+      font-family: sans-serif;
+      font-size: 15px;
+      background-color:blue;
+      color: white;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #ans-list .drag-answer {
+      margin-bottom: 25px;
+    }
+
+    .answer-container>*:last-child {
+      margin-bottom: 0px !important;
+    }
+
+    .submit-btn {
+      width: 200px;
+      height: 40px;
+      font-size: 15px;
+      color: white;
+      background: #818181;
+      border-radius: 26px;
+      outline: none;
+      margin-top: 20px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .middle-text {
+      width: inherit;
+      height: inherit;
+      display: table-cell;
+      vertical-align: middle;
+      padding: 0 15px;
+    }
+
+    .mar-49 {
+      margin-top: 49px;
+    }
+
+    .mar-31 {
+      margin-top: 31px;
+    }
+    @media screen and (max-width: 767px) {
+      .question-container {
+        height: 495px;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+      .answer-container {
+        margin-left: 10px;
+      }
+
+      .question-box {
+        width: 500px;
+        height: 130px;
+      }
+
+
+      .mar-49 {
+        margin-top: 32px;
+      }
+
+      [class*="col-"] {
+        padding-left: 0px !important;
+      }
+    }
+
+    @media screen and (max-width: 500px) {
+      .drag-answer {
+        width: 130px;
+        padding: 0;
+      }
+
+      .answer-container {
+        min-width: 130px;
+        margin-left: 5px;
+      }
+
+      .drag-box {
+        width: 130px;
+        padding: 0;
+      }
+
+      .mar-49 {
+        margin-top: 31px;
+      }
+    }
+    .circle {
+      height: 70px;
+      width: 70px;
+      background: white;
+      border-radius: 50px;
+      text-align: center;
+      line-height: 70px;
+    }
+
+    .circle-div {
+      display: flex;
+      width: fit-content;
+      width: -moz-fit-content;
+      margin: 30px auto;
+    }
+    #question_1{
+      background:black;
+    }
+    #question_2{
+      background: yellow
+    }
+    #question_3{
+      background: green
+    }
+    #question_4{
+      background: #ffffff
+    }
+  </style>
+  <script>
+
+    function submit() {
+      let answsers = {
+        question_1: "answer_3",
+        question_2: "answer_4",
+        question_3: "answer_1",
+        question_4: "answer_2",
+      };
+      let correst_cnt = 0;
+
+      let q = ["1", "2", "3", "4"];
+      var s = "question_";
+
+      var ans = {};
+      var ans_arr = [];
+
+      var model = document.getElementById("result-model");
+      q.forEach((ele) => {
+        let id = s + ele;
+        var doc = document.getElementById(id).childNodes[0];
+        if (!doc) {
+          alert("please drag the answers for all questions");
+        }
+        ans_arr.push(doc.id);
+        ans[id] = doc.id;
+        if (doc.id === answsers[id]) {
+          correst_cnt = correst_cnt + 1;
+        }
+      });
+      alert(`Your score is ${correst_cnt} out of 4`);
+    }
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function addBorder() {
+      let q = ["1", "2", "3", "4"];
+      q.forEach((ele) => {
+        let id = "question_" + ele;
+        var ele = document.getElementById(id);
+        var doc = ele.childNodes[0];
+        if (!doc) {
+          ele.style.border = "1px dotted black";
+        } else {
+          ele.style.border = "none";
+        }
+      });
+    }
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function touchM(e) {
+      e.preventDefault();
+      // grab the location of touch
+      var touchLocation = e.targetTouches[0];
+      e.target.parentNode.style.position = "absolute";
+      // assign box new coordinates based on the touch.
+      e.target.parentNode.style.left = touchLocation.pageX + "px";
+      e.target.parentNode.style.top = touchLocation.pageY + "px";
+    }
+
+    function touchE(e) {
+      // current box position.
+      var x = parseInt(e.target.parentNode.style.left);
+      var y = parseInt(e.target.parentNode.style.top);
+      touchEndFun(x, y, e.target.parentNode);
+    }
+
+    function touchEndFun(x, y, dom_ele) {
+      let q = ["1", "2", "3", "4"];
+      let flag = false;
+      q.forEach((ele) => {
+        let id = "question_" + ele;
+        var elem = document.getElementById(id);
+        var ele = elem.getBoundingClientRect();
+        var xx = ele.x + 130;
+        var yy = ele.y + 60;
+
+        if (x >= ele.x && x <= xx) {
+          if (y >= ele.y && y <= yy) {
+            var doc = elem.childNodes;
+
+            if (doc.length == 0 || doc.length == 0) {
+              flag = true;
+              dom_ele.style.position = "inherit";
+              elem.appendChild(dom_ele);
+            }
+          }
+        }
+      });
+      if (flag === false) {
+        touchEndAnsList(x, y, dom_ele);
+      }
+      addBorder();
+    }
+
+    function touchEndAnsList(x, y, dom_ele) {
+      var elem = document.getElementById("ans-list");
+      var ele = elem.getBoundingClientRect();
+
+      var xx = ele.x + 200;
+      var yy = ele.y + 500;
+
+      if (x >= ele.x && x <= xx) {
+        if (y >= ele.y && y <= yy) {
+          dom_ele.style.position = "inherit";
+          elem.appendChild(dom_ele);
+        }else{
+          dom_ele.style.position = "inherit";
+          dom_ele.parentNode.appendChild(dom_ele);
+        }
+      } else {
+        dom_ele.style.position = "inherit";
+        dom_ele.parentNode.appenaddBorderdChild(dom_ele);
+      }
+    }
+    function dropAnswer(ev) {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("text");
+      if(ev.target.childNodes.length === 0){
+        ev.target.appendChild(document.getElementById(data));
+      addBorder();
+      }
+    }
+
+    function dropG(ev) {
+      ev.preventDefault();
+      if (!ev.target.draggable) {
+        var data = ev.dataTransfer.getData("text");
+        var d = document.getElementById("ans-list");
+        d.appendChild(document.getElementById(data));
+      }
+      addBorder();
+    }
+  </script>
+</head>
+
+<body>
+  <div>
+      <p class="question-style">
+          Match the color name with box color.
+      </p>
+  </div>
+  <div class="main-container">
+    <!-- question section -->
+    <div class="question-container">
+      <div class="row">
+        <div class="col-6 col-s-6 col-xs-12">
+          <div class="question-box">
+            <div class="drop-box">
+              <div id="question_1" class="drag-box mar-31" ondrop="dropAnswer(event)" ondragover="allowDrop(event)"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-s-6 col-xs-12">
+          <div class="question-box">
+            <div id="question_2" class="drag-box" ondrop="dropAnswer(event)" ondragover="allowDrop(event)"></div>
+          </div>
+        </div>
+
+        <div class="col-6 col-s-6 col-xs-12">
+          <div class="question-box">
+            <div id="question_3" class="drag-box" ondrop="dropAnswer(event)" ondragover="allowDrop(event)"></div>
+          </div>
+        </div>
+
+        <div class="col-6 col-s-6 col-xs-12">
+          <div class="question-box">
+            <div id="question_4" class="drag-box mar-49" ondrop="dropAnswer(event)" ondragover="allowDrop(event)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- answer section -->
+    <div id="ans-list" class="answer-container" ondrop="dropG(event)" ondragover="allowDrop(event)">
+      <div id="answer_1" class="drag-answer" draggable="true" ondragstart="drag(event)" ontouchmove="touchM(event)"
+        ontouchend="touchE(event)" ghost="false" >
+        <span id="ans_1" class="middle-text">Green</span>
+      </div>
+
+      <div id="answer_2" class="drag-answer" draggable="true" ondragstart="drag(event)" ontouchmove="touchM(event)"
+        ontouchend="touchE(event)">
+        <span id="ans_2" class="middle-text">White</span>
+      </div>
+
+      <div id="answer_3" class="drag-answer" draggable="true" ondragstart="drag(event)" ontouchmove="touchM(event)"
+        ontouchend="touchE(event)">
+        <span id="ans_3" class="middle-text">
+          Black
+        </span>
+      </div>
+
+      <div id="answer_4" class="drag-answer" draggable="true" ondragstart="drag(event)" ontouchmove="touchM(event)"
+        ontouchend="touchE(event)">
+        <span id="ans_4" class="middle-text">
+          Yellow
+        </span>
+      </div>
+    </div>
+  </div>
+  <div style="text-align: center; display: flex;">
+    <div style="flex: 1;">
+      <button class="submit-btn" onclick="submit()">
+        Submit Answer
+      </button>
+    </div>
+
+    <div class="answer-container"></div>
+  </div>
+</body>
+</html>
